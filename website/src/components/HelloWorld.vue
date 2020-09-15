@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="panel-text-chat" id="container" style="max-height:200px; overflow-y: auto;">
+      please connect your user...
     </div>
     <div>
       <br />
@@ -12,13 +13,22 @@
       <br />
       <br />
       <br />
-      <button class="btn_enviar">Enviar</button>
+      <button class="button_style">Send message</button>
+      <button class="button_style">Connect user</button>
+
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
+  sockets: {
+        connect: function () {
+            console.log('socket connected')
+        },
+       
+    },
   mounted: function () {
     this.scrollToEnd()
   },
@@ -39,7 +49,7 @@ export default {
   border-radius: 10px;
   overflow: scroll;
 }
-.btn_enviar {
+.button_style {
   width: 30%;
   height: 3vw;
 }

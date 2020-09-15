@@ -1,12 +1,14 @@
 <template>
   <div>
-    <div class="panel-text-chat" id="container" style="max-height:200px; overflow-y: auto;">
-      please connect your user...
-    </div>
+    <div
+      class="panel-text-chat"
+      id="container"
+      style="max-height:200px; overflow-y: auto;"
+    >please connect your user...</div>
     <div>
       <br />
       <br />
-      <input type="text" name="username" placeholder="Escribe tu username" class="message" />
+      <input type="text" name="username" placeholder="Escribe tu username" class="message" v-model="username"/>
       <br />
       <br />
       <input type="text" name="message" placeholder="Escribe tu mensaje aqui" class="message" />
@@ -14,29 +16,35 @@
       <br />
       <br />
       <button class="button_style">Send message</button>
-      <button class="button_style">Connect user</button>
-
+      <button class="button_style" @click="connectUser">Connect user</button>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
+  data(){
+    return{
+      username: ""
+    }
+  },
   sockets: {
-        connect: function () {
-            console.log('socket connected')
-        },
-       
+    connect: function () {
+      console.log("Socket connected");
     },
+  },
   mounted: function () {
-    this.scrollToEnd()
+    this.scrollToEnd();
   },
   methods: {
     scrollToEnd: function () {
       var container = this.$el.querySelector("#container");
       container.scrollTop = container.scrollHeight;
     },
+    connectUser: function(){
+      console.log(this.username)
+      this.$socket.emit('connectUser', this.username)
+    }
   },
 };
 </script>

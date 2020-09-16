@@ -17,15 +17,15 @@ io.on("connection", (socket) => {
   });
 
   socket.on('connectUser', (user) => {
-    console.log("Usuario intento conectar"+user)
-
+    console.log("user trying connect: "+user)
     if(!usersConnected.includes(user)){
+        console.log("User connected: "+user)
         usersConnected.push(user)
         io.emit('connectUser', usersConnected);
     }else{
         io.emit('connectUserError', usersConnected);
+        console.log("User is connected: "+user)
     }
-    
   });
 });
 

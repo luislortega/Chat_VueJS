@@ -8,29 +8,49 @@
     <div>
       <br />
       <br />
-      <input type="text" name="username" placeholder="Escribe tu username" class="message" v-model="username"/>
+      <input
+        type="text"
+        name="username"
+        placeholder="Escribe tu username"
+        class="message"
+        v-model="username"
+      />
       <br />
       <br />
-      <input type="text" name="message" placeholder="Escribe tu mensaje aqui" class="message" />
+      <input
+        type="text"
+        name="message"
+        placeholder="Escribe tu mensaje aqui"
+        class="message"
+        v-model="message"
+      />
       <br />
       <br />
       <br />
-      <button class="button_style">Send message</button>
-      <button class="button_style" @click="connectUser">Connect user</button>
+      <button class="button_style" @click="sendMsg">Send message</button>
+      <button class="button_style">Connect user</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-      username: ""
-    }
+  data() {
+    return {
+      username: "",
+      message: "",
+      connected: false,
+    };
   },
   sockets: {
     connect: function () {
       console.log("Socket connected");
+    },
+    sendMessage: function (data) {
+      console.log(data);
+      var container = this.$el.querySelector("#container");
+      container.innerHTML += `<br> ${data.user} : ${data.msg} <br>`
+
     },
   },
   mounted: function () {
@@ -41,10 +61,12 @@ export default {
       var container = this.$el.querySelector("#container");
       container.scrollTop = container.scrollHeight;
     },
-    connectUser: function(){
-      console.log(this.username)
-      this.$socket.emit('connectUser', this.username)
-    }
+    sendMsg: function () {
+      this.$socket.emit("sendMessage", {
+        user: this.username,
+        msg: this.message,
+      });
+    },
   },
 };
 </script>

@@ -12,8 +12,9 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 
-  socket.on('sendMessage', (user, msg) => {
-    io.emit('sendMessage', {user: user, msg: msg});
+  socket.on('sendMessage', (data) => {
+    console.log(data.user)
+    io.emit('sendMessage', data);
   });
 
   socket.on('connectUser', (user) => {
